@@ -1,0 +1,58 @@
+{
+  "fecha": "2026-11-17T12:15:47.522495-05:00",
+  "entorno": "PostgreSQL 18, cluster aislado, puerto 55440",
+  "resultados": [
+    {
+      "migracion": "V1__usuarios_roles_permisos.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V2__roles_iniciales.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V3__llegadas.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V4__fichas_motocicletas.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V5__permisos_sprint1.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V6__chasis_unico.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V7__tokens_revocados.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V8__base_logistica_sprint2.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V9__integridad_historial_sprint2.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "migracion": "V10__disponibilidad_inconsistencias_movil.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "prueba": "verificar_base_sprint2.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "prueba": "verificar_incremento3.sql",
+      "resultado": "APROBADA"
+    },
+    {
+      "prueba": "Actualización V7 a V10 con usuarios, llegada y motocicleta preexistentes",
+      "resultado": "APROBADA: mismas filas antes y después"
+    }
+  ]
+}

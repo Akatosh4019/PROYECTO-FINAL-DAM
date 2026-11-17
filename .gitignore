@@ -1,0 +1,20 @@
+# Configuración local y secretos
+.env
+.env.*
+!.env.example
+**/local.properties
+**/.idea/
+*.iml
+# Cachés y resultados de compilación
+**/.gradle/
+**/build/
+**/target/
+**/classes/
+**/__pycache__/
+*.class
+*.hprof
+*.apk
+*.aab
+*.lock
+**/xcuserdata/
+entrega/
