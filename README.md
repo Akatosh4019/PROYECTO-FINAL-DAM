@@ -30,6 +30,8 @@ Compras, ventas y agenda de postventa no se incluyen.
 
 ## Estado verificable
 
+Avance adicional del 17/11/2026: cliente HTTP único inyectado por Koin y jerarquía sellada de errores, con distinción entre validación, sesión vencida, permisos, conflicto y conexión. Cinco comprobaciones de la traducción de errores se compilaron y ejecutaron satisfactoriamente con Kotlin/JVM. Los tests completos de commonTest y el build Android todavía no se han aprobado.
+
 - Migraciones V1-V10, scripts SQL de incrementos 2/3 y actualización V7-V10 con datos previos: aprobados en PostgreSQL 18 aislado. Ver `validacion/resultado-bd.json`.
 - Reglas de negocio: 16/16 casos aprobados con Java.
 - Revisión sintáctica: 43 archivos Java y 12 Kotlin sin errores. Es una comprobación sintáctica, no una compilación integral.

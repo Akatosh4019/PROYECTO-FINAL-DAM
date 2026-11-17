@@ -10,17 +10,17 @@ import kotlinx.serialization.json.*
 import kotlinx.serialization.encodeToString
 import kotlinx.coroutines.CancellationException
 
-class RemoteRepository(engine:HttpClientEngine):LogisticsRepository{
+class RemoteRepository(private val http:HttpClient):LogisticsRepository{
  private val json=Json{ignoreUnknownKeys=true;encodeDefaults=true}
- private val http=HttpClient(engine){install(HttpTimeout){requestTimeoutMillis=20000;connectTimeoutMillis=10000}}
  private var base="";private var token=""
  private suspend fun request(path:String,body:String?=null,method:String="GET"):String{
-  val response=http.request(base+path){this.method=HttpMethod.parse(method);contentType(ContentType.Application.Json);if(token.isNotEmpty())bearerAuth(token);if(body!=null)setBody(body)}
+  val response=try{http.request(base+path){this.method=HttpMethod.parse(method);contentType(ContentType.Application.Json);if(token.isNotEmpty())bearerAuth(token);if(body!=null)setBody(body)}}catch(e:CancellationException){throw e}catch(e:Exception){throw AppException(AppError.Network)}
   val text=response.bodyAsText()
   if(response.status.value !in 200..299){
    if(response.status.value==401)token=""
    val message=runCatching{val o=json.parseToJsonElement(text).jsonObject;o["error"]?.jsonPrimitive?.content?:o["detail"]?.jsonPrimitive?.content?:o["message"]?.jsonPrimitive?.content}.getOrNull()
-   throw IllegalStateException(message?:when(response.status.value){401->"La sesión terminó. Vuelve a ingresar.";403->"Tu cuenta no tiene permiso.";else->"No se pudo guardar (${response.status.value}). Revisa los datos."})
+   val fields=runCatching{json.parseToJsonElement(text).jsonObject["errores"]?.jsonObject?.mapValues{it.value.jsonPrimitive.content}}.getOrNull().orEmpty()
+   throw AppException(apiError(response.status.value,message,fields))
   };return text
  }
  override suspend fun login(baseUrl:String,user:String,password:String):Access{
